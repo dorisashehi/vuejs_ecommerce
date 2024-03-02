@@ -11,7 +11,7 @@
 
       <div class="recommended">
 
-        <ProductCard v-for="(product, index) in inventory.slice(0, 3)" :key="product.id" class="card" :index="index"
+        <ProductCard v-for="(product, index) in props.inventory.slice(0, 3)" :key="product.id" class="card" :index="index"
           :product="product" :addToCart="addToCart" />
       </div>
 
@@ -19,15 +19,17 @@
   </div>
 </template>
 
-<script>
+<script setup>
 
 import ProductCard from '@/components/ProductCard.vue'
-export default {
-  name: 'HomeView',
-  props: ['inventory', 'addToCart'],
-  components: {
-    ProductCard
-  }
-}
+import { defineProps } from 'vue'
 
+const props = defineProps({
+  inventory: {
+    type: Object
+  },
+  addToCart: {
+    type: Function
+  }
+})
 </script>

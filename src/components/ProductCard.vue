@@ -1,17 +1,17 @@
 <template>
     <div class="card">
         <div class="card-title">
-            {{ product.name }}
+            {{ props.product.name }}
         </div>
         <div class="card-body">
-            <i class="icofont-10x" :class="'icofont-' + product.icon"></i>
+            <i class="icofont-10x" :class="'icofont-' + props.product.icon"></i>
             <form>
                 <div class="row">
                     <div class="cell">
                         <label>Type:</label>
                     </div>
                     <div class="cell">
-                        <em>{{ product.icon }}</em>
+                        <em>{{ props.product.icon }}</em>
                     </div>
                 </div>
                 <div class="row">
@@ -19,7 +19,7 @@
                         <label>Price:</label>
                     </div>
                     <div class="cell">
-                        {{ product.price.USD }}
+                        {{ props.product.price.USD }}
                     </div>
                 </div>
                 <div class="row">
@@ -33,24 +33,32 @@
             </form>
         </div>
         <div class="card-footer">
-            <button class="btn btn-light" @click="addToCart(product.name, quantity)">
+            <button class="btn btn-light" @click="addToCart(props.product.name, quantity)">
                 Add to cart
             </button>
         </div>
     </div>
 </template>
 
-<script>
+<script setup>
 
-export default {
-  name: 'ProductCard',
-  props: ['product', 'index', 'addToCart'],
-  data() {
-    return {
-      quantity: 0
-    }
+import { defineProps, ref, watch } from 'vue'
+
+const props = defineProps({
+  product: {
+    type: Object
+  },
+  index: {
+    type: Number
+  },
+  addToCart: {
+    type: Function
   }
+})
 
-}
+const quantity = ref(0)
 
+watch(quantity, (val) => {
+  console.log(val)
+})
 </script>

@@ -14,12 +14,12 @@
         </tr>
       </thead>
       <tbody>
-        <OrdersComponent v-for="(quantity, product_name ) in cart" :calculateTotal="calculateTotal" :getPrice='getPrice'
-          :product_name="product_name" :quantity="quantity" :key="product_name" :inventory="inventory" :cart="cart"
-          :addToCart="addToCart" />
+        <OrdersComponent v-for="(quantity, product_name ) in props.cart" :calculateTotal="props.calculateTotal" :getPrice='props.getPrice'
+          :product_name="product_name" :quantity="quantity" :key="product_name" :inventory="props.inventory" :cart='props.cart'
+          :addToCart="props.addToCart" />
         <tr>
           <th>
-            Total: ${{ calculateTotal() }}
+            Total: ${{ props.calculateTotal() }}
           </th>
         </tr>
 
@@ -28,18 +28,27 @@
   </main>
 </template>
 
-<script>
+<script setup>
 import OrdersComponent from '@/components/OrdersComponent'
+import { defineProps } from 'vue'
 
-export default {
-  name: 'PastOrdersView',
-  components: {
-    OrdersComponent
+const props = defineProps({
+  addToCart: {
+    type: Function
   },
-  props: ['cart', 'inventory', 'addToCart', 'getPrice', 'calculateTotal'],
-  mounted() {
-    console.log(this.cart)
+  inventory: {
+    type: Object
+  },
+  calculateTotal: {
+    type: Number,
+    default: 0
+  },
+  cart: {
+    type: Object
+  },
+  getPrice: {
+    type: Function
   }
 
-}
+})
 </script>
