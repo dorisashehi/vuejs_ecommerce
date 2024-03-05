@@ -14,12 +14,12 @@
         </tr>
       </thead>
       <tbody>
-        <OrdersComponent v-for="(quantity, product_name ) in props.cart" :calculateTotal="props.calculateTotal" :getPrice='props.getPrice'
-          :product_name="product_name" :quantity="quantity" :key="product_name" :inventory="props.inventory" :cart='props.cart'
-          :addToCart="props.addToCart" />
+        <OrdersComponent v-for="(quantity, product_name ) in allData.cart"
+          :product_name="product_name" :quantity="quantity" :key="product_name"
+        />
         <tr>
           <th>
-            Total: ${{ props.calculateTotal() }}
+            Total: ${{ allData.calculateTotal() }}
           </th>
         </tr>
 
@@ -30,25 +30,8 @@
 
 <script setup>
 import OrdersComponent from '@/components/OrdersComponent'
-import { defineProps } from 'vue'
+import { useAllDataStore } from '@/stores/AllData'
 
-const props = defineProps({
-  addToCart: {
-    type: Function
-  },
-  inventory: {
-    type: Object
-  },
-  calculateTotal: {
-    type: Number,
-    default: 0
-  },
-  cart: {
-    type: Object
-  },
-  getPrice: {
-    type: Function
-  }
+const allData = useAllDataStore()
 
-})
 </script>

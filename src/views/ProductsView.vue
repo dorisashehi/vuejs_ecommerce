@@ -7,13 +7,13 @@
         :product="product" :addToCart="allData.addToCart" />
     </div>
 
-    <!-- <sidebar v-if="showSidebar" :toggle="toggleSidebar" :cart="cart" :inventory="inventory" :remove="removeItem" /> -->
+    <sidebar-component v-if="allData.showSidebar" />
 
   </main>
 </template>
 
 <script setup>
-
+import SidebarComponent from '@/components/SidebarComponent.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import { useAllDataStore } from '@/stores/AllData'
 
