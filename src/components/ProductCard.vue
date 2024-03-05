@@ -33,7 +33,7 @@
             </form>
         </div>
         <div class="card-footer">
-            <button class="btn btn-light" @click="addToCart(props.product.name, quantity)">
+            <button class="btn btn-light" @click="allData.addToCart(props.product.name, quantity)">
                 Add to cart
             </button>
         </div>
@@ -43,6 +43,9 @@
 <script setup>
 
 import { defineProps, ref, watch } from 'vue'
+import { useAllDataStore } from '@/stores/AllData'
+
+const allData = useAllDataStore()
 
 const props = defineProps({
   product: {
@@ -50,9 +53,6 @@ const props = defineProps({
   },
   index: {
     type: Number
-  },
-  addToCart: {
-    type: Function
   }
 })
 

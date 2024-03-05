@@ -6,7 +6,7 @@
                     Cart
                     <i class="icofont-cart-alt icofont-1x"></i>
                 </span>
-                <button @click='props.toggle' class="cart-close">&times;</button>
+                <button @click='allData.toggleSidebar' class="cart-close">&times;</button>
             </h1>
 
             <div class="cart-body">
@@ -22,14 +22,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(quantity, key, i) in props.cart" :key="i">
+                        <tr v-for="(quantity, key, i) in allData.cart" :key="i">
                             <td><i class="icofont-carrot icofont-3x"></i></td>
                             <td>{{ key }}</td>
-                            <td>${{ props.getPrice(key) }}</td>
+                            <td>${{ allData.getPrice(key) }}</td>
                             <td class="center">{{ quantity }}</td>
-                            <td>${{ quantity * props.getPrice(key) }}</td>
+                            <td>${{ quantity * allData.getPrice(key) }}</td>
                             <td class="center">
-                                <button @click="props.remove(key)" class="btn btn-light cart-remove">
+                                <button @click="allData.removeItem(key)" class="btn btn-light cart-remove">
                                     &times;
                                 </button>
                             </td>
@@ -37,9 +37,9 @@
                     </tbody>
                 </table>
 
-                <p class="center" v-if="!Object.keys(props.cart).length"><em>No items in cart</em></p>
+                <p class="center" v-if="!Object.keys(allData.cart).length"><em>No items in cart</em></p>
                 <div class="spread">
-                    <span><strong>Total:</strong> ${{ calculateTotal() }}</span>
+                    <span><strong>Total:</strong> ${{ allData.calculateTotal() }}</span>
                     <button class="btn btn-light">Checkout</button>
                 </div>
             </div>
@@ -49,24 +49,8 @@
 
 <script setup>
 
-import { defineProps } from 'vue'
+import { useAllDataStore } from '@/stores/AllData'
 
-const props = defineProps({
-  toggle: {
-    type: Function
-  },
-  calculateTotal: {
-    type: Number,
-    default: 0
-  },
-  cart: {
-    type: Object
-  },
-  getPrice: {
-    type: Function
-  },
-  remove: {
-    type: Function
-  }
-})
+const allData = useAllDataStore()
+
 </script>

@@ -11,8 +11,8 @@
 
       <div class="recommended">
 
-        <ProductCard v-for="(product, index) in props.inventory.slice(0, 3)" :key="product.id" class="card" :index="index"
-          :product="product" :addToCart="addToCart" />
+        <ProductCard v-for="(product, index) in allData.inventory.slice(0, 3)" :key="product.id" class="card" :index="index"
+          :product="product"/>
       </div>
 
     </main>
@@ -22,14 +22,8 @@
 <script setup>
 
 import ProductCard from '@/components/ProductCard.vue'
-import { defineProps } from 'vue'
+import { useAllDataStore } from '@/stores/AllData'
 
-const props = defineProps({
-  inventory: {
-    type: Object
-  },
-  addToCart: {
-    type: Function
-  }
-})
+const allData = useAllDataStore()
+
 </script>

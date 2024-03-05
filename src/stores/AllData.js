@@ -5,7 +5,8 @@ export const useAllDataStore = defineStore('data', {
   state() {
     return {
       inventory: food,
-      cart: {}
+      cart: {},
+      showSidebar: false
     }
   },
 
@@ -21,6 +22,23 @@ export const useAllDataStore = defineStore('data', {
         return acc + curr[1] * this.getPrice(curr[0])
       }, 0)
       return total.toFixed()
+    },
+    addToCart(name, quantity) {
+      if (!this.cart[name]) this.cart[name] = 0
+      this.cart[name] = quantity
+    },
+    toggleSidebar() {
+      this.showSidebar = !this.showSidebar
+    },
+    removeItem(name) {
+      delete this.cart[name]
+    }
+  },
+  getters: {
+    totalQuantity() {
+      return Object.values(this.cart).reduce((acc, curr) => {
+        return acc + curr
+      }, 0)
     }
   }
 })
